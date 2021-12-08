@@ -1,70 +1,32 @@
-# Getting Started with Create React App
+# CRA app with HTTPS configured
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Steps to setup https for custom local domain from scratch for CRA app
 
-## Available Scripts
+* Pick a domain you would like to use. For this repo it is `mysecure.localhost.app`
+* Edit `/etc/hosts` file and add `127.0.0.1   mysecure.localhost.app`
+* Create `.cert` folder project root directory `mkdir .cert`
+* Install [mkcert](https://github.com/FiloSottile/mkcert) It will create CertificateAuthority in your Keychain (in mac) and sign site certificates using that CA
+* Run `mkcert -install` so the CA is added to the Keychain (password will be required)
+* Run `mkcert -key-file ./.cert/key.pem -cert-file ./.cert/cert.pem "mysecure.localhost.app"` to generate site certificate for `mysecure.localhost.app`
+* Create `.env` file in project root directory with following config
+```
+HTTPS=true
+SSL_CRT_FILE=./.cert/cert.pem
+SSL_KEY_FILE=./.cert/key.pem
+HOST=mysecure.localhost.app
+```
+* Run the application `yarn start`
 
-In the project directory, you can run:
+Now your application should have https & lock icon
 
-### `yarn start`
+### Steps to run THIS REPO with HTTPS
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* Edit `/etc/hosts` file and add `127.0.0.1   mysecure.localhost.app`
+* Install [mkcert](https://github.com/FiloSottile/mkcert) It will create CertificateAuthority in your Keychain (in mac) and sign site certificates using that CA
+* Run `mkcert -install` so the CA is added to the Keychain (password will be required)
+* Run `mkcert -key-file ./.cert/key.pem -cert-file ./.cert/cert.pem "mysecure.localhost.app"` to generate site certificate for `mysecure.localhost.app`
+* Run the application `yarn start`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Important!
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The certificate generated on my machine wouldn't work on another as you don't have the same Certificate Authority added to keychain. Because of that contents of .cert folder are ignored from GIT. Each developer needs to generate them for themself.
