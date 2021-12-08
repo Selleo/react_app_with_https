@@ -32,3 +32,9 @@ Now your application should have https & lock icon
 ### Important!
 
 The certificate generated on my machine wouldn't work on another as you don't have the same Certificate Authority added to keychain. Because of that contents of .cert folder are ignored from GIT. Each developer needs to generate them for themself.
+
+### Documentation
+
+https://create-react-app.dev/docs/using-https-in-development/
+
+https://github.com/FiloSottile/mkcert
