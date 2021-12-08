@@ -8,6 +8,8 @@
 * Run `mkcert -key-file ./.cert/key.pem -cert-file ./.cert/cert.pem "mysecure.localhost.app"` to generate site certificate for `mysecure.localhost.app`
 * Run the application `yarn start`
 
+![Final result](./finalResult.png?raw=true "Final result")
+
 ### Steps to setup https for custom local domain from scratch for CRA app
 
 * Pick a domain you would like to use. For this repo it is `mysecure.localhost.app`
